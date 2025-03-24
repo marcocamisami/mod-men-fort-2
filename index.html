@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRIAD DMA | FORTNITE MOD MENU</title>
+    <title>TRIAD DMA | ULTIMATE FORTNITE MOD MENU</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
@@ -13,8 +13,10 @@
             --secondary-color: #f2e335;
             --rage-color: #ff3fd7;
             --legit-color: #00ff9d;
+            --exploit-color: #ff6b00;
             --bg-color: rgba(10, 5, 20, 0.97);
-            --tab-width: 120px;
+            --tab-width: 130px;
+            --header-height: 80px;
         }
         
         * {
@@ -58,7 +60,7 @@
             background: var(--bg-color);
             border: 2px solid var(--main-color);
             border-radius: 15px;
-            width: 900px;
+            width: 1000px;
             max-height: 90vh;
             padding: 15px;
             box-shadow: 0 0 40px rgba(0, 181, 255, 0.8);
@@ -74,6 +76,10 @@
             margin-bottom: 15px;
             position: relative;
             flex-shrink: 0;
+            height: var(--header-height);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .menu-header h1 {
@@ -87,12 +93,42 @@
             color: transparent;
             animation: rainbow 8s ease infinite;
             letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 181, 255, 0.5);
         }
         
         @keyframes rainbow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-top: 5px;
+            color: #aaa;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .status-indicator.active {
+            background: var(--legit-color);
+            box-shadow: 0 0 5px var(--legit-color);
+        }
+        
+        .status-indicator.inactive {
+            background: #ff5555;
         }
         
         .menu-content {
@@ -126,6 +162,7 @@
             align-items: center;
             justify-content: center;
             min-height: 70px;
+            position: relative;
         }
         
         .tab i {
@@ -137,6 +174,21 @@
             background: linear-gradient(to right, rgba(0, 181, 255, 0.7), transparent);
             border-left: 3px solid var(--main-color);
             color: var(--secondary-color);
+        }
+        
+        .tab-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--rage-color);
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .tab-content-container {
@@ -163,12 +215,44 @@
             to { opacity: 1; }
         }
         
+        .section-title {
+            color: var(--main-color);
+            margin: 10px 0 5px;
+            font-size: 18px;
+            border-bottom: 1px solid rgba(0, 181, 255, 0.3);
+            padding-bottom: 3px;
+        }
+        
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+        }
+        
         .option {
             background: rgba(40, 40, 40, 0.7);
             border-radius: 6px;
             padding: 12px;
             margin-bottom: 10px;
             border-left: 3px solid var(--main-color);
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .option.exploit {
+            border-left-color: var(--exploit-color);
+        }
+        
+        .option.rage {
+            border-left-color: var(--rage-color);
+        }
+        
+        .option.legit {
+            border-left-color: var(--legit-color);
         }
         
         .option-title {
@@ -182,6 +266,14 @@
             margin: 0;
             color: var(--secondary-color);
             font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-title h3 i {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
         }
         
         .toggle {
@@ -221,6 +313,10 @@
         
         .toggle.rage.active {
             background: var(--rage-color);
+        }
+        
+        .toggle.exploit.active {
+            background: var(--exploit-color);
         }
         
         .option-content {
@@ -269,6 +365,84 @@
             background: var(--rage-color);
         }
         
+        .slider.exploit::-webkit-slider-thumb {
+            background: var(--exploit-color);
+        }
+        
+        .dropdown {
+            width: 100%;
+            padding: 6px 10px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid var(--main-color);
+            border-radius: 4px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        
+        .checkbox-option input {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox-option label {
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .color-picker {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        
+        .color-picker input {
+            width: 30px;
+            height: 30px;
+            border: none;
+            margin-right: 10px;
+            cursor: pointer;
+            background: transparent;
+        }
+        
+        .color-picker label {
+            font-size: 13px;
+        }
+        
+        .keybind {
+            background: rgba(0, 181, 255, 0.2);
+            border: 1px solid var(--main-color);
+            border-radius: 3px;
+            padding: 3px 6px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .keybind:hover {
+            background: rgba(0, 181, 255, 0.4);
+        }
+        
+        .keybind.active {
+            background: var(--main-color);
+            color: black;
+        }
+        
+        .hotkey-list {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
         .preset-buttons {
             display: flex;
             justify-content: center;
@@ -278,13 +452,20 @@
         }
         
         .preset-btn {
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
             border: none;
-            font-size: 13px;
+            font-size: 14px;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .preset-btn i {
+            font-size: 16px;
         }
         
         .preset-btn.legit {
@@ -294,6 +475,11 @@
         
         .preset-btn.rage {
             background: linear-gradient(to right, var(--rage-color), #9900cc);
+            color: white;
+        }
+        
+        .preset-btn.exploit {
+            background: linear-gradient(to right, var(--exploit-color), #993300);
             color: white;
         }
         
@@ -325,18 +511,128 @@
             background: var(--secondary-color);
         }
         
-        .keybind {
-            background: rgba(0, 181, 255, 0.2);
-            border: 1px solid var(--main-color);
-            border-radius: 3px;
-            padding: 3px 6px;
-            font-size: 12px;
-            margin-right: 5px;
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
             display: inline-block;
         }
         
-        .hotkey-list {
-            margin-top: 8px;
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(0,0,0,0.9);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            border: 1px solid var(--main-color);
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Notification system */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            border-left: 4px solid var(--main-color);
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification i {
+            font-size: 20px;
+        }
+        
+        .notification.success {
+            border-left-color: var(--legit-color);
+        }
+        
+        .notification.warning {
+            border-left-color: var(--rage-color);
+        }
+        
+        /* Search box */
+        .search-box {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 8px 15px 8px 35px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid var(--main-color);
+            border-radius: 20px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--main-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .menu-container {
+                width: 95%;
+                max-height: 85vh;
+            }
+            
+            .menu-content {
+                flex-direction: column;
+            }
+            
+            .tabs {
+                flex-direction: row;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+            
+            .tab {
+                min-width: 80px;
+                min-height: 50px;
+                padding: 10px 5px;
+                font-size: 12px;
+            }
+            
+            .tab i {
+                margin-bottom: 2px;
+                font-size: 16px;
+            }
+            
+            .option-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -346,7 +642,31 @@
     <div class="menu-container">
         <div class="menu-header">
             <h1>TRIAD DMA</h1>
-            <p>FORTNITE MOD MENU | v5.0</p>
+            <p>ULTIMATE FORTNITE MOD MENU | v6.2</p>
+            
+            <div class="status-bar">
+                <div class="status-item">
+                    <div class="status-indicator active"></div>
+                    <span>DMA CONNECTED</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator active"></div>
+                    <span>UNDETECTED</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator active"></div>
+                    <span>FORTNITE 27.10</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator active"></div>
+                    <span>LATEST CONFIG</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="feature-search" placeholder="Search features..." oninput="searchFeatures()">
         </div>
         
         <div class="menu-content">
@@ -354,10 +674,12 @@
                 <div class="tab active" data-tab="aimbot">
                     <i class="fas fa-crosshairs"></i>
                     AIMBOT
+                    <div class="tab-badge">5</div>
                 </div>
                 <div class="tab" data-tab="esp">
                     <i class="fas fa-eye"></i>
                     ESP
+                    <div class="tab-badge">8</div>
                 </div>
                 <div class="tab" data-tab="build">
                     <i class="fas fa-cubes"></i>
@@ -370,84 +692,193 @@
                 <div class="tab" data-tab="movement">
                     <i class="fas fa-running"></i>
                     MOVEMENT
+                    <div class="tab-badge">3</div>
                 </div>
                 <div class="tab" data-tab="visuals">
                     <i class="fas fa-camera"></i>
                     VISUALS
                 </div>
+                <div class="tab" data-tab="exploits">
+                    <i class="fas fa-bug"></i>
+                    EXPLOITS
+                    <div class="tab-badge">NEW</div>
+                </div>
                 <div class="tab" data-tab="misc">
                     <i class="fas fa-cogs"></i>
                     MISC
+                </div>
+                <div class="tab" data-tab="config">
+                    <i class="fas fa-save"></i>
+                    CONFIG
                 </div>
             </div>
             
             <div class="tab-content-container">
                 <!-- Aimbot Tab Content -->
                 <div id="aimbot" class="tab-content active">
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-crosshairs"></i> AIMBOT PRO</h3>
-                            <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">MAIN AIM FEATURES</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-crosshairs"></i> AIMBOT PRO</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Smooth: <span class="slider-value">60%</span></label>
+                                    <input type="range" min="0" max="100" value="60" class="slider legit" id="aimbot-smooth">
+                                </div>
+                                <div class="slider-container">
+                                    <label>FOV: <span class="slider-value">12°</span></label>
+                                    <input type="range" min="1" max="30" value="12" class="slider legit" id="aimbot-fov">
+                                </div>
+                                <div class="slider-container">
+                                    <label>Bone Priority</label>
+                                    <select class="dropdown" id="aimbot-bone">
+                                        <option value="head">Head (80%)</option>
+                                        <option value="chest">Chest (100%)</option>
+                                        <option value="pelvis">Pelvis (90%)</option>
+                                        <option value="dynamic">Dynamic (AI)</option>
+                                    </select>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="aimbot-visible" checked>
+                                    <label for="aimbot-visible">Visible Check</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="aimbot-teamcheck" checked>
+                                    <label for="aimbot-teamcheck">Team Check</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="aimbot-targetswitching">
+                                    <label for="aimbot-targetswitching">Smart Target Switching</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Smooth: <span class="slider-value">60%</span></label>
-                                <input type="range" min="0" max="100" value="60" class="slider legit" id="aimbot-smooth">
+                        
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-bullseye"></i> SILENT AIM</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="slider-container">
-                                <label>FOV: <span class="slider-value">12°</span></label>
-                                <input type="range" min="1" max="30" value="12" class="slider legit" id="aimbot-fov">
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Hit Chance: <span class="slider-value">80%</span></label>
+                                    <input type="range" min="0" max="100" value="80" class="slider rage" id="silent-hit">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="silent-ignorewalls">
+                                    <label for="silent-ignorewalls">Ignore Walls</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="silent-nospread">
+                                    <label for="silent-nospread">No Spread</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="silent-predict">
+                                    <label for="silent-predict">Movement Prediction</label>
+                                </div>
                             </div>
-                            <div class="slider-container">
-                                <label>Bone Priority</label>
-                                <select class="dropdown" id="aimbot-bone">
-                                    <option value="head">Head (80%)</option>
-                                    <option value="chest">Chest (100%)</option>
-                                    <option value="pelvis">Pelvis (90%)</option>
-                                </select>
+                        </div>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-fingerprint"></i> TRIGGERBOT</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="aimbot-visible" checked>
-                                <label for="aimbot-visible">Visible Check</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="aimbot-teamcheck" checked>
-                                <label for="aimbot-teamcheck">Team Check</label>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Delay: <span class="slider-value">25ms</span></label>
+                                    <input type="range" min="0" max="200" value="25" class="slider legit" id="trigger-delay">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="trigger-onlyscope">
+                                    <label for="trigger-onlyscope">Only When Scoped</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">MOUSE4</div>
+                                    <div class="keybind">MOUSE5</div>
+                                    <div class="keybind">ALT</div>
+                                    <div class="keybind">SHIFT</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-bullseye"></i> SILENT AIM</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Hit Chance: <span class="slider-value">80%</span></label>
-                                <input type="range" min="0" max="100" value="80" class="slider rage" id="silent-hit">
+                    <h3 class="section-title">ADVANCED AIM SETTINGS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-robot"></i> AIM ASSIST+</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="silent-ignorewalls">
-                                <label for="silent-ignorewalls">Ignore Walls</label>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Strength: <span class="slider-value">45%</span></label>
+                                    <input type="range" min="0" max="100" value="45" class="slider legit" id="aimassist-strength">
+                                </div>
+                                <div class="slider-container">
+                                    <label>Slowdown Radius: <span class="slider-value">30%</span></label>
+                                    <input type="range" min="0" max="100" value="30" class="slider legit" id="aimassist-radius">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="aimassist-ads" checked>
+                                    <label for="aimassist-ads">Only When ADS</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-magnet"></i> MAGNET BULLETS</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Bullet Curve: <span class="slider-value">15%</span></label>
+                                    <input type="range" min="0" max="100" value="15" class="slider rage" id="magnet-strength">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="magnet-sniper">
+                                    <label for="magnet-sniper">Sniper Only</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option expanded">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-fingerprint"></i> TRIGGERBOT</h3>
-                            <div class="toggle legit" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Delay: <span class="slider-value">25ms</span></label>
-                                <input type="range" min="0" max="200" value="25" class="slider legit" id="trigger-delay">
+                    <h3 class="section-title">WEAPON SPECIFIC</h3>
+                    <div class="option-grid">
+                        <div class="option">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-sniper"></i> SNIPER AIM</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="hotkey-list">
-                                <div class="keybind">MOUSE4</div>
-                                <div class="keybind">MOUSE5</div>
-                                <div class="keybind">ALT</div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>No Scope Delay: <span class="slider-value">0ms</span></label>
+                                    <input type="range" min="0" max="500" value="0" class="slider legit" id="sniper-delay">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="sniper-autoshoot">
+                                    <label for="sniper-autoshoot">Auto Shoot on Target</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-shotgun"></i> SHOTGUN AIM</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="shotgun-headonly">
+                                    <label for="shotgun-headonly">Head Only</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="shotgun-pellet">
+                                    <label for="shotgun-pellet">Pellet Control</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -455,69 +886,210 @@
                 
                 <!-- ESP Tab Content -->
                 <div id="esp" class="tab-content">
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-cube"></i> PLAYER ESP</h3>
-                            <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">PLAYER VISUALS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-user"></i> PLAYER ESP</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Box Style</label>
+                                    <select class="dropdown" id="esp-box">
+                                        <option value="2d">2D Box</option>
+                                        <option value="3d">3D Box</option>
+                                        <option value="corner">Corner Box</option>
+                                        <option value="skeleton">Skeleton Box</option>
+                                    </select>
+                                </div>
+                                <div class="color-picker">
+                                    <input type="color" id="esp-color" value="#00b5ff">
+                                    <label>Box Color</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Max Distance: <span class="slider-value">250m</span></label>
+                                    <input type="range" min="50" max="500" value="250" class="slider legit" id="esp-distance">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="esp-skeleton" checked>
+                                    <label for="esp-skeleton">Skeleton</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="esp-health" checked>
+                                    <label for="esp-health">Health Bar</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="esp-shield" checked>
+                                    <label for="esp-shield">Shield Bar</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="esp-name">
+                                    <label for="esp-name">Player Name</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="esp-weapon">
+                                    <label for="esp-weapon">Weapon</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="esp-snaplines">
+                                    <label for="esp-snaplines">Snaplines</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Box Style</label>
-                                <select class="dropdown" id="esp-box">
-                                    <option value="2d">2D Box</option>
-                                    <option value="3d">3D Box</option>
-                                    <option value="corner">Corner Box</option>
-                                </select>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-ghost"></i> GHOST ESP</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="slider-container">
-                                <label>Max Distance: <span class="slider-value">250m</span></label>
-                                <input type="range" min="50" max="500" value="250" class="slider legit" id="esp-distance">
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="esp-skeleton">
-                                <label for="esp-skeleton">Skeleton</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="esp-health" checked>
-                                <label for="esp-health">Health Bar</label>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ghost-enemy">
+                                    <label for="ghost-enemy">Enemy Ghosts</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ghost-teammate">
+                                    <label for="ghost-teammate">Teammate Ghosts</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Ghost Opacity: <span class="slider-value">40%</span></label>
+                                    <input type="range" min="10" max="100" value="40" class="slider legit" id="ghost-opacity">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ghost-trail">
+                                    <label for="ghost-trail">Movement Trail</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option expanded">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-box-open"></i> LOOT ESP</h3>
-                            <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">LOOT & ITEMS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-box-open"></i> LOOT ESP</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Loot Rarity</label>
+                                    <select class="dropdown" id="loot-rarity">
+                                        <option value="all">All Items</option>
+                                        <option value="rare">Rare+ Only</option>
+                                        <option value="epic">Epic+ Only</option>
+                                        <option value="legendary">Legendary Only</option>
+                                    </select>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Max Distance: <span class="slider-value">100m</span></label>
+                                    <input type="range" min="10" max="300" value="100" class="slider legit" id="loot-distance">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loot-weapons" checked>
+                                    <label for="loot-weapons">Weapons</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loot-heals" checked>
+                                    <label for="loot-heals">Heals</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loot-materials">
+                                    <label for="loot-materials">Materials</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loot-ammo">
+                                    <label for="loot-ammo">Ammo</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loot-vehicles">
+                                    <label for="loot-vehicles">Vehicles</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Loot Rarity</label>
-                                <select class="dropdown" id="loot-rarity">
-                                    <option value="all">All Items</option>
-                                    <option value="rare">Rare+ Only</option>
-                                    <option value="epic">Epic+ Only</option>
-                                </select>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-chess"></i> CHEST ESP</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="loot-weapons" checked>
-                                <label for="loot-weapons">Weapons</label>
-                            </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="loot-heals" checked>
-                                <label for="loot-heals">Heals</label>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="chest-normal" checked>
+                                    <label for="chest-normal">Normal Chests</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="chest-legendary" checked>
+                                    <label for="chest-legendary">Legendary Chests</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="chest-supply">
+                                    <label for="chest-supply">Supply Drops</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="chest-llama">
+                                    <label for="chest-llama">Loot Llamas</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="chest-highlight">
+                                    <label for="chest-highlight">Highlight Unopened</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-map-marked-alt"></i> RADAR</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">WORLD ESP</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-map-marked-alt"></i> RADAR</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Radar Size: <span class="slider-value">150px</span></label>
+                                    <input type="range" min="50" max="300" value="150" class="slider rage" id="radar-size">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="radar-players" checked>
+                                    <label for="radar-players">Show Players</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="radar-loot">
+                                    <label for="radar-loot">Show Loot</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="radar-vehicles">
+                                    <label for="radar-vehicles">Show Vehicles</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F6</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Radar Size: <span class="slider-value">150px</span></label>
-                                <input type="range" min="50" max="300" value="150" class="slider rage" id="radar-size">
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-project-diagram"></i> TRAP ESP</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="trap-all" checked>
+                                    <label for="trap-all">All Traps</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="trap-damage">
+                                    <label for="trap-damage">Damage Traps</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="trap-utility">
+                                    <label for="trap-utility">Utility Traps</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="trap-range">
+                                    <label for="trap-range">Show Activation Range</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -525,57 +1097,162 @@
                 
                 <!-- Build Tab Content -->
                 <div id="build" class="tab-content">
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-bolt"></i> INSTANT BUILD</h3>
-                            <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="build-nodelay" checked>
-                                <label for="build-nodelay">No Turbo Delay</label>
+                    <h3 class="section-title">BUILD HACKS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-bolt"></i> INSTANT BUILD</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="build-hold">
-                                <label for="build-hold">Hold to Build</label>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-nodelay" checked>
+                                    <label for="build-nodelay">No Turbo Delay</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-hold">
+                                    <label for="build-hold">Hold to Build</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-placeanywhere">
+                                    <label for="build-placeanywhere">Place Anywhere</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-instantedit">
+                                    <label for="build-instantedit">Instant Edit</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-shield-alt"></i> BUILD PROTECTION</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-unbreakable">
+                                    <label for="build-unbreakable">Unbreakable Builds</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-seethru">
+                                    <label for="build-seethru">See Through Builds</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-noselfdamage">
+                                    <label for="build-noselfdamage">No Self Damage</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="build-autorepair">
+                                    <label for="build-autorepair">Auto Repair</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option expanded">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-shield-alt"></i> BUILD PROTECTION</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="build-unbreakable">
-                                <label for="build-unbreakable">Unbreakable Builds</label>
+                    <h3 class="section-title">BUILD MACROS</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-magic"></i> BUILD MACROS</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="build-seethru">
-                                <label for="build-seethru">See Through Builds</label>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="macro-ramp">
+                                    <label for="macro-ramp">Instant Ramp Rush</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="macro-90s">
+                                    <label for="macro-90s">Fast 90s</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="macro-tunneling">
+                                    <label for="macro-tunneling">Auto Tunneling</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="macro-retakes">
+                                    <label for="macro-retakes">High Ground Retakes</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">RAMP: MOUSE4</div>
+                                    <div class="keybind">90s: MOUSE5</div>
+                                    <div class="keybind">TUNNEL: F7</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-robot"></i> AUTO BUILD</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="autobuild-defensive">
+                                    <label for="autobuild-defensive">Defensive Structures</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="autobuild-offensive">
+                                    <label for="autobuild-offensive">Offensive Structures</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Reaction Time: <span class="slider-value">150ms</span></label>
+                                    <input type="range" min="50" max="500" value="150" class="slider legit" id="autobuild-delay">
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F8</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-magic"></i> BUILD MACROS</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">MATERIALS</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-infinity"></i> MATERIAL HACKS</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mat-infinite">
+                                    <label for="mat-infinite">Infinite Materials</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mat-instant">
+                                    <label for="mat-instant">Instant Farm</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mat-autofarm">
+                                    <label for="mat-autofarm">Auto Farm Nearby</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="macro-ramp">
-                                <label for="macro-ramp">Instant Ramp Rush</label>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-cubes"></i> MATERIAL SWAP</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="macro-90s">
-                                <label for="macro-90s">Fast 90s</label>
-                            </div>
-                            <div class="hotkey-list">
-                                <div class="keybind">RAMP: MOUSE4</div>
-                                <div class="keybind">90s: MOUSE5</div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="matswap-enabled">
+                                    <label for="matswap-enabled">Enable Material Swap</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Material Type</label>
+                                    <select class="dropdown" id="matswap-type">
+                                        <option value="brick">Brick</option>
+                                        <option value="metal">Metal</option>
+                                        <option value="wood">Wood</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                                <div class="color-picker">
+                                    <input type="color" id="matswap-color" value="#FF5733">
+                                    <label>Custom Color</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -583,53 +1260,153 @@
                 
                 <!-- Weapons Tab Content -->
                 <div id="weapons" class="tab-content">
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-arrows-alt"></i> NO RECOIL</h3>
-                            <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Strength: <span class="slider-value">75%</span></label>
-                                <input type="range" min="0" max="100" value="75" class="slider legit" id="recoil-strength">
+                    <h3 class="section-title">WEAPON MODS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-arrows-alt"></i> NO RECOIL</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="recoil-nospread" checked>
-                                <label for="recoil-nospread">No Spread</label>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Strength: <span class="slider-value">75%</span></label>
+                                    <input type="range" min="0" max="100" value="75" class="slider legit" id="recoil-strength">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="recoil-nospread" checked>
+                                    <label for="recoil-nospread">No Spread</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="recoil-nosway">
+                                    <label for="recoil-nosway">No Sway</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="recoil-perfect">
+                                    <label for="recoil-perfect">Perfect Accuracy</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-tachometer-alt"></i> RAPID FIRE</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Speed Multiplier: <span class="slider-value">2.5x</span></label>
+                                    <input type="range" min="1" max="5" step="0.1" value="2.5" class="slider rage" id="rapidfire-speed">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="rapidfire-silent">
+                                    <label for="rapidfire-silent">Silent Fire</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="rapidfire-nodelay">
+                                    <label for="rapidfire-nodelay">No Fire Delay</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="rapidfire-allweapons">
+                                    <label for="rapidfire-allweapons">All Weapons</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option expanded">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-tachometer-alt"></i> RAPID FIRE</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Speed Multiplier: <span class="slider-value">2.5x</span></label>
-                                <input type="range" min="1" max="5" step="0.1" value="2.5" class="slider rage" id="rapidfire-speed">
+                    <h3 class="section-title">AMMO & RELOAD</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-infinity"></i> AMMO HACKS</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="rapidfire-silent">
-                                <label for="rapidfire-silent">Silent Fire</label>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ammo-infinite">
+                                    <label for="ammo-infinite">Infinite Ammo</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ammo-noreload">
+                                    <label for="ammo-noreload">No Reload</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ammo-oneshot">
+                                    <label for="ammo-oneshot">One Shot Kill</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ammo-nodrop">
+                                    <label for="ammo-nodrop">No Ammo Drop</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-fast-forward"></i> INSTANT RELOAD</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="reload-instant">
+                                    <label for="reload-instant">Instant Reload</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="reload-animation">
+                                    <label for="reload-animation">Keep Animation</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="reload-automatic">
+                                    <label for="reload-automatic">Auto Reload</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-infinity"></i> AMMO HACKS</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="ammo-infinite">
-                                <label for="ammo-infinite">Infinite Ammo</label>
+                    <h3 class="section-title">WEAPON VISUALS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-paint-brush"></i> WEAPON SKINS</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="ammo-noreload">
-                                <label for="ammo-noreload">No Reload</label>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="skin-allweapons">
+                                    <label for="skin-allweapons">All Weapons</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Skin ID</label>
+                                    <input type="text" id="weapon-skinid" placeholder="Enter Skin ID" class="dropdown">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="skin-visibleonly">
+                                    <label for="skin-visibleonly">Only You See It</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-eye-slash"></i> NO WEAPON ANIM</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="anim-nopullout">
+                                    <label for="anim-nopullout">No Pullout Animation</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="anim-noreload">
+                                    <label for="anim-noreload">No Reload Animation</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="anim-nosway">
+                                    <label for="anim-nosway">No Weapon Sway</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="anim-nobob">
+                                    <label for="anim-nobob">No View Bobbing</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -637,33 +1414,143 @@
                 
                 <!-- Movement Tab Content -->
                 <div id="movement" class="tab-content">
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-tachometer-alt"></i> SPEEDHACK</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Speed: <span class="slider-value">1.5x</span></label>
-                                <input type="range" min="1" max="3" step="0.1" value="1.5" class="slider rage" id="speed-multiplier">
+                    <h3 class="section-title">SPEED HACKS</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-tachometer-alt"></i> SPEEDHACK</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="speed-nofall">
-                                <label for="speed-nofall">No Fall Damage</label>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Speed: <span class="slider-value">1.5x</span></label>
+                                    <input type="range" min="1" max="3" step="0.1" value="1.5" class="slider rage" id="speed-multiplier">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="speed-nofall">
+                                    <label for="speed-nofall">No Fall Damage</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="speed-noslow">
+                                    <label for="speed-noslow">No Slow Effects</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="speed-nostamina">
+                                    <label for="speed-nostamina">Infinite Stamina</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F4</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-running"></i> BUNNY HOP</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Hop Strength: <span class="slider-value">75%</span></label>
+                                    <input type="range" min="0" max="100" value="75" class="slider exploit" id="bhop-strength">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="bhop-automatic">
+                                    <label for="bhop-automatic">Automatic</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="bhop-preserve">
+                                    <label for="bhop-preserve">Preserve Momentum</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option expanded">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-ghost"></i> TELEPORT</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">TELEPORT & FLY</h3>
+                    <div class="option-grid">
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-ghost"></i> TELEPORT</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Teleport Distance: <span class="slider-value">10m</span></label>
+                                    <input type="range" min="5" max="50" value="10" class="slider exploit" id="teleport-distance">
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TELEPORT: T</div>
+                                    <div class="keybind">SAVE POS: F1</div>
+                                    <div class="keybind">LOAD POS: F2</div>
+                                    <div class="keybind">UNDO: F3</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="hotkey-list">
-                                <div class="keybind">TELEPORT: T</div>
-                                <div class="keybind">SAVE POS: F1</div>
-                                <div class="keybind">LOAD POS: F2</div>
+                        
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-feather-alt"></i> FLY HACK</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Fly Speed: <span class="slider-value">2.0x</span></label>
+                                    <input type="range" min="0.5" max="5" step="0.1" value="2.0" class="slider exploit" id="fly-speed">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="fly-noclip">
+                                    <label for="fly-noclip">No Clip Mode</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F5</div>
+                                    <div class="keybind">UP: SPACE</div>
+                                    <div class="keybind">DOWN: CTRL</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-title">VEHICLE HACKS</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-car"></i> VEHICLE MODS</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Speed Multiplier: <span class="slider-value">2.0x</span></label>
+                                    <input type="range" min="1" max="5" step="0.1" value="2.0" class="slider rage" id="vehicle-speed">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="vehicle-nodamage">
+                                    <label for="vehicle-nodamage">No Vehicle Damage</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="vehicle-nofuel">
+                                    <label for="vehicle-nofuel">Infinite Fuel</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="vehicle-fly">
+                                    <label for="vehicle-fly">Vehicle Fly</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-palette"></i> VEHICLE SKINS</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Skin ID</label>
+                                    <input type="text" id="vehicle-skinid" placeholder="Enter Skin ID" class="dropdown">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="vehicle-skinvisible">
+                                    <label for="vehicle-skinvisible">Only You See It</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -671,49 +1558,296 @@
                 
                 <!-- Visuals Tab Content -->
                 <div id="visuals" class="tab-content">
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-palette"></i> SKIN CHANGER</h3>
-                            <div class="toggle legit" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Skin ID</label>
-                                <input type="text" id="skin-id" placeholder="Enter Skin ID" class="dropdown">
+                    <h3 class="section-title">PLAYER VISUALS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-palette"></i> SKIN CHANGER</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="skin-visible">
-                                <label for="skin-visible">Only You See It</label>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Skin ID</label>
+                                    <input type="text" id="skin-id" placeholder="Enter Skin ID" class="dropdown">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="skin-visible">
+                                    <label for="skin-visible">Only You See It</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="skin-random">
+                                    <label for="skin-random">Random Skin Each Game</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-expand"></i> FOV CHANGER</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>FOV: <span class="slider-value">90</span></label>
+                                    <input type="range" min="60" max="120" value="90" class="slider legit" id="fov-value">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="fov-zoomed">
+                                    <label for="fov-zoomed">Affect Zoomed</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="fov-vehicle">
+                                    <label for="fov-vehicle">Affect Vehicles</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option expanded">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-expand"></i> FOV CHANGER</h3>
-                            <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>FOV: <span class="slider-value">90</span></label>
-                                <input type="range" min="60" max="120" value="90" class="slider legit" id="fov-value">
+                    <h3 class="section-title">WORLD VISUALS</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-eye-dropper"></i> WORLD COLOR</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="fov-zoomed">
-                                <label for="fov-zoomed">Affect Zoomed</label>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Saturation: <span class="slider-value">100%</span></label>
+                                    <input type="range" min="0" max="200" value="100" class="slider rage" id="saturation-value">
+                                </div>
+                                <div class="color-picker">
+                                    <input type="color" id="world-color" value="#FFFFFF">
+                                    <label>World Tint</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="world-nightmode">
+                                    <label for="world-nightmode">Night Mode</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-sun"></i> LIGHTING</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Brightness: <span class="slider-value">50%</span></label>
+                                    <input type="range" min="0" max="100" value="50" class="slider legit" id="brightness-value">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="lighting-noshadows">
+                                    <label for="lighting-noshadows">No Shadows</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="lighting-fullbright">
+                                    <label for="lighting-fullbright">Full Bright</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-eye-dropper"></i> WORLD COLOR</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">VISUAL EFFECTS</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-fire"></i> EFFECT REMOVAL</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="effect-nosmoke">
+                                    <label for="effect-nosmoke">No Smoke</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="effect-nomuzzle">
+                                    <label for="effect-nomuzzle">No Muzzle Flash</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="effect-nodust">
+                                    <label for="effect-nodust">No Dust</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="effect-nofog">
+                                    <label for="effect-nofog">No Fog</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="effect-noweather">
+                                    <label for="effect-noweather">No Weather</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="slider-container">
-                                <label>Saturation: <span class="slider-value">100%</span></label>
-                                <input type="range" min="0" max="200" value="100" class="slider rage" id="saturation-value">
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-bolt"></i> HIT EFFECTS</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="hit-bullethole">
+                                    <label for="hit-bullethole">No Bullet Holes</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="hit-blood">
+                                    <label for="hit-blood">No Blood</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="hit-sound">
+                                    <label for="hit-sound">No Hit Sound</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="hit-indicator">
+                                    <label for="hit-indicator">No Hit Indicator</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Exploits Tab Content -->
+                <div id="exploits" class="tab-content">
+                    <h3 class="section-title">GAME EXPLOITS</h3>
+                    <div class="option-grid">
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-user-secret"></i> INVISIBILITY</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="invis-full">
+                                    <label for="invis-full">Full Invisibility</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="invis-partial">
+                                    <label for="invis-partial">Partial Invisibility</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="invis-nametag">
+                                    <label for="invis-nametag">Hide Name Tag</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F9</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-shield-alt"></i> GOD MODE</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="god-full">
+                                    <label for="god-full">Full God Mode</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="god-silent">
+                                    <label for="god-silent">Silent God Mode</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="god-vehicle">
+                                    <label for="god-vehicle">Vehicle God Mode</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="god-fall">
+                                    <label for="god-fall">No Fall Damage</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-title">LOOT EXPLOITS</h3>
+                    <div class="option-grid">
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-boxes"></i> LOOT TELEPORT</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loottp-weapons">
+                                    <label for="loottp-weapons">Weapons</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loottp-heals">
+                                    <label for="loottp-heals">Heals</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="loottp-materials">
+                                    <label for="loottp-materials">Materials</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Max Distance: <span class="slider-value">50m</span></label>
+                                    <input type="range" min="10" max="200" value="50" class="slider exploit" id="loottp-distance">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-gem"></i> LOOT SPAWNER</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Item ID</label>
+                                    <input type="text" id="lootspawn-id" placeholder="Enter Item ID" class="dropdown">
+                                </div>
+                                <div class="slider-container">
+                                    <label>Quantity</label>
+                                    <input type="number" id="lootspawn-qty" min="1" max="999" value="1" class="dropdown">
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">SPAWN: F10</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-title">ADVANCED EXPLOITS</h3>
+                    <div class="option-grid">
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-network-wired"></i> LAG SWITCH</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Lag Duration: <span class="slider-value">500ms</span></label>
+                                    <input type="range" min="100" max="2000" value="500" class="slider exploit" id="lag-duration">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="lag-auto">
+                                    <label for="lag-auto">Auto Lag</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F11</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option exploit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-user-astronaut"></i> GHOST PEEK</h3>
+                                <div class="toggle exploit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="ghostpeek-enable">
+                                    <label for="ghostpeek-enable">Enable Ghost Peek</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Peek Distance: <span class="slider-value">2.0m</span></label>
+                                    <input type="range" min="0.5" max="5" step="0.1" value="2.0" class="slider exploit" id="ghostpeek-distance">
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">PEEK: MOUSE4</div>
+                                    <div class="keybind">RESET: MOUSE5</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -721,52 +1855,279 @@
                 
                 <!-- Misc Tab Content -->
                 <div id="misc" class="tab-content">
-                    <div class="option">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-robot"></i> AUTO FARM</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                    <h3 class="section-title">AUTOMATION</h3>
+                    <div class="option-grid">
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-robot"></i> AUTO FARM</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="farm-mats">
+                                    <label for="farm-mats">Materials</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="farm-chests">
+                                    <label for="farm-chests">Chests</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="farm-ammo">
+                                    <label for="farm-ammo">Ammo Boxes</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="farm-vehicles">
+                                    <label for="farm-vehicles">Vehicles</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F3</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="option-content">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="farm-mats">
-                                <label for="farm-mats">Materials</label>
+                        
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-bolt"></i> AUTO PEEK</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="farm-chests">
-                                <label for="farm-chests">Chests</label>
-                            </div>
-                            <div class="hotkey-list">
-                                <div class="keybind">TOGGLE: F3</div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="autopeek-enable">
+                                    <label for="autopeek-enable">Enable Auto Peek</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Peek Distance: <span class="slider-value">1.5m</span></label>
+                                    <input type="range" min="0.5" max="3" step="0.1" value="1.5" class="slider legit" id="autopeek-distance">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="autopeek-return">
+                                    <label for="autopeek-return">Auto Return</label>
+                                </div>
+                                <div class="hotkey-list">
+                                    <div class="keybind">TOGGLE: F12</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="option expanded">
-                        <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-stream"></i> STREAMER MODE</h3>
-                            <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
-                        </div>
-                        <div class="option-content">
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="streamer-hide" checked>
-                                <label for="streamer-hide">Hide Menu</label>
+                    <h3 class="section-title">GAME MODIFICATIONS</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-stream"></i> STREAMER MODE</h3>
+                                <div class="toggle legit active" onclick="toggleActive(this, event)"></div>
                             </div>
-                            <div class="checkbox-option">
-                                <input type="checkbox" id="streamer-fake">
-                                <label for="streamer-fake">Fake Input</label>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="streamer-hide" checked>
+                                    <label for="streamer-hide">Hide Menu</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="streamer-fake">
+                                    <label for="streamer-fake">Fake Input</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="streamer-names">
+                                    <label for="streamer-names">Random Player Names</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="streamer-watermark">
+                                    <label for="streamer-watermark">Remove Watermark</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-star"></i> XP BOOST</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Multiplier: <span class="slider-value">2.0x</span></label>
+                                    <input type="range" min="1" max="10" step="0.1" value="2.0" class="slider rage" id="xp-multiplier">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="xp-autofarm">
+                                    <label for="xp-autofarm">Auto XP Farm</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
+                    <h3 class="section-title">OTHER FEATURES</h3>
+                    <div class="option-grid">
+                        <div class="option legit">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-gamepad"></i> CONTROLLER SUPPORT</h3>
+                                <div class="toggle legit" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="controller-aimassist">
+                                    <label for="controller-aimassist">Enhanced Aim Assist</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="controller-norecoil">
+                                    <label for="controller-norecoil">No Recoil</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="controller-togglesprint">
+                                    <label for="controller-togglesprint">Toggle Sprint</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option rage">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-clock"></i> TIME CHANGER</h3>
+                                <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Time of Day: <span class="slider-value">12:00</span></label>
+                                    <input type="range" min="0" max="24" value="12" class="slider rage" id="time-value">
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="time-freeze">
+                                    <label for="time-freeze">Freeze Time</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Config Tab Content -->
+                <div id="config" class="tab-content">
+                    <h3 class="section-title">CONFIGURATION</h3>
+                    <div class="option-grid">
+                        <div class="option">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-save"></i> CONFIG MANAGER</h3>
+                                <div class="toggle" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Select Config</label>
+                                    <select class="dropdown" id="config-select">
+                                        <option value="default">Default</option>
+                                        <option value="legit">Legit</option>
+                                        <option value="rage">Rage</option>
+                                        <option value="streamer">Streamer</option>
+                                    </select>
+                                </div>
+                                <div class="preset-buttons" style="margin-top: 10px; justify-content: space-between;">
+                                    <button class="preset-btn legit" onclick="saveConfig()">
+                                        <i class="fas fa-save"></i> SAVE
+                                    </button>
+                                    <button class="preset-btn rage" onclick="loadConfig()">
+                                        <i class="fas fa-folder-open"></i> LOAD
+                                    </button>
+                                    <button class="preset-btn exploit" onclick="resetConfig()">
+                                        <i class="fas fa-trash"></i> RESET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-keyboard"></i> KEYBINDS</h3>
+                                <div class="toggle" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Menu Key</label>
+                                    <select class="dropdown" id="menu-key">
+                                        <option value="insert">INSERT</option>
+                                        <option value="delete">DELETE</option>
+                                        <option value="f1">F1</option>
+                                        <option value="f2">F2</option>
+                                        <option value="end">END</option>
+                                    </select>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="keybind-notify" checked>
+                                    <label for="keybind-notify">Keybind Notifications</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="keybind-silent">
+                                    <label for="keybind-silent">Silent Keybinds</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-title">MENU SETTINGS</h3>
+                    <div class="option-grid">
+                        <div class="option">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-paint-brush"></i> THEME</h3>
+                                <div class="toggle" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="slider-container">
+                                    <label>Menu Theme</label>
+                                    <select class="dropdown" id="menu-theme">
+                                        <option value="default">Default (Blue/Yellow)</option>
+                                        <option value="green">Green/Black</option>
+                                        <option value="purple">Purple/Black</option>
+                                        <option value="red">Red/Black</option>
+                                        <option value="pink">Pink/Black</option>
+                                    </select>
+                                </div>
+                                <div class="color-picker">
+                                    <input type="color" id="custom-color" value="#00b5ff">
+                                    <label>Custom Color</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="theme-darkmode" checked>
+                                    <label for="theme-darkmode">Dark Mode</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option">
+                            <div class="option-title" onclick="toggleOption(this.parentElement)">
+                                <h3><i class="fas fa-cog"></i> PERFORMANCE</h3>
+                                <div class="toggle" onclick="toggleActive(this, event)"></div>
+                            </div>
+                            <div class="option-content">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="perf-fps" checked>
+                                    <label for="perf-fps">FPS Boost</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="perf-memory">
+                                    <label for="perf-memory">Low Memory Mode</label>
+                                </div>
+                                <div class="slider-container">
+                                    <label>Menu FPS: <span class="slider-value">60</span></label>
+                                    <input type="range" min="30" max="240" value="60" class="slider" id="menu-fps">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="section-title">ABOUT & UPDATES</h3>
                     <div class="option">
                         <div class="option-title" onclick="toggleOption(this.parentElement)">
-                            <h3><i class="fas fa-star"></i> XP BOOST</h3>
-                            <div class="toggle rage" onclick="toggleActive(this, event)"></div>
+                            <h3><i class="fas fa-info-circle"></i> ABOUT TRIAD DMA</h3>
+                            <div class="toggle" onclick="toggleActive(this, event)"></div>
                         </div>
                         <div class="option-content">
-                            <div class="slider-container">
-                                <label>Multiplier: <span class="slider-value">2.0x</span></label>
-                                <input type="range" min="1" max="10" step="0.1" value="2.0" class="slider rage" id="xp-multiplier">
+                            <p style="font-size: 13px; margin-bottom: 10px;">
+                                TRIAD DMA v6.2 | Fortnite Mod Menu<br>
+                                Developed by Triad Cheats<br>
+                                Last Updated: 2023-11-15
+                            </p>
+                            <div class="preset-buttons" style="margin-top: 10px; justify-content: space-between;">
+                                <button class="preset-btn legit" onclick="checkUpdates()">
+                                    <i class="fas fa-sync-alt"></i> CHECK UPDATES
+                                </button>
+                                <button class="preset-btn rage" onclick="showDiscord()">
+                                    <i class="fab fa-discord"></i> DISCORD
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -781,11 +2142,20 @@
             <button class="preset-btn rage" onclick="applyPreset('rage')">
                 <i class="fas fa-fire"></i> RAGE PRESET
             </button>
+            <button class="preset-btn exploit" onclick="applyPreset('exploit')">
+                <i class="fas fa-bug"></i> EXPLOIT PRESET
+            </button>
         </div>
         
         <div class="footer">
             <p>⚠️ THIS IS A VISUAL SIMULATION ONLY - DOES NOT WORK IN-GAME ⚠️</p>
+            <p style="margin-top: 5px;">TRIAD DMA v6.2 | © 2023 Triad Cheats | All Rights Reserved</p>
         </div>
+    </div>
+
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <div class="notification-content">Settings saved successfully!</div>
     </div>
 
     <script>
@@ -801,6 +2171,9 @@
             
             event.currentTarget.classList.add('active');
             document.getElementById(tabId).classList.add('active');
+            
+            // Save last active tab
+            localStorage.setItem('lastTab', tabId);
         }
         
         // Option toggles
@@ -818,13 +2191,28 @@
                 const sliders = optionContent.querySelectorAll('.slider');
                 sliders.forEach(slider => {
                     if (element.classList.contains('active')) {
-                        slider.classList.add(element.classList.contains('legit') ? 'legit' : 'rage');
-                        slider.classList.remove(element.classList.contains('legit') ? 'rage' : 'legit');
+                        if (element.classList.contains('legit')) {
+                            slider.classList.add('legit');
+                            slider.classList.remove('rage', 'exploit');
+                        } else if (element.classList.contains('rage')) {
+                            slider.classList.add('rage');
+                            slider.classList.remove('legit', 'exploit');
+                        } else if (element.classList.contains('exploit')) {
+                            slider.classList.add('exploit');
+                            slider.classList.remove('legit', 'rage');
+                        } else {
+                            slider.classList.remove('legit', 'rage', 'exploit');
+                        }
                     } else {
-                        slider.classList.remove('legit', 'rage');
+                        slider.classList.remove('legit', 'rage', 'exploit');
                     }
                 });
             }
+            
+            // Show notification
+            const optionName = element.closest('.option').querySelector('h3').textContent.trim();
+            const state = element.classList.contains('active') ? 'enabled' : 'disabled';
+            showNotification(`${optionName} ${state}`, element.classList.contains('active') ? 'success' : 'warning');
         }
         
         // Preset system
@@ -832,15 +2220,16 @@
             const toggles = document.querySelectorAll('.toggle');
             const sliders = document.querySelectorAll('.slider');
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const selects = document.querySelectorAll('select');
             
             if (type === 'legit') {
                 // Legit preset - subtle settings
                 toggles.forEach(toggle => {
-                    if (toggle.closest('#aimbot') || toggle.closest('#esp') || toggle.closest('#visuals')) {
+                    if (toggle.closest('#aimbot') || toggle.closest('#esp') || toggle.closest('#visuals') || toggle.closest('#misc')) {
                         toggle.classList.add('active', 'legit');
-                        toggle.classList.remove('rage');
+                        toggle.classList.remove('rage', 'exploit');
                     } else {
-                        toggle.classList.remove('active', 'legit', 'rage');
+                        toggle.classList.remove('active', 'legit', 'rage', 'exploit');
                     }
                 });
                 
@@ -849,7 +2238,7 @@
                         slider.value = slider.id.includes('smooth') ? 70 : 
                                       slider.id.includes('fov') ? 10 : 65;
                         slider.classList.add('legit');
-                        slider.classList.remove('rage');
+                        slider.classList.remove('rage', 'exploit');
                     }
                 });
                 
@@ -857,7 +2246,92 @@
                     if (checkbox.id.includes('visible') || 
                         checkbox.id.includes('teamcheck') ||
                         checkbox.id.includes('health') ||
-                        checkbox.id.includes('nodelay')) {
+                        checkbox.id.includes('nodelay') ||
+                        checkbox.id.includes('streamer')) {
+                        checkbox.checked = true;
+                    } else {
+                        checkbox.checked = false;
+                    }
+                });
+                
+                selects.forEach(select => {
+                    if (select.id.includes('box')) {
+                        select.value = '2d';
+                    } else if (select.id.includes('rarity')) {
+                        select.value = 'epic';
+                    }
+                });
+                
+                // Pulse effect on preset button
+                event.currentTarget.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    event.currentTarget.style.transform = '';
+                }, 300);
+                
+                showNotification('Legit preset applied', 'success');
+                
+            } else if (type === 'rage') {
+                // Rage preset - aggressive settings
+                toggles.forEach(toggle => {
+                    toggle.classList.add('active', 'rage');
+                    toggle.classList.remove('legit', 'exploit');
+                });
+                
+                sliders.forEach(slider => {
+                    if (slider.id.includes('smooth')) slider.value = 15;
+                    if (slider.id.includes('fov')) slider.value = 30;
+                    if (slider.id.includes('strength')) slider.value = 100;
+                    if (slider.id.includes('rapidfire')) slider.value = 5;
+                    if (slider.id.includes('speed')) slider.value = 2.5;
+                    slider.classList.add('rage');
+                    slider.classList.remove('legit', 'exploit');
+                });
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = true;
+                });
+                
+                selects.forEach(select => {
+                    if (select.id.includes('box')) {
+                        select.value = '3d';
+                    } else if (select.id.includes('rarity')) {
+                        select.value = 'all';
+                    }
+                });
+                
+                // Pulse effect on preset button
+                event.currentTarget.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    event.currentTarget.style.transform = '';
+                }, 300);
+                
+                showNotification('Rage preset applied', 'success');
+                
+            } else if (type === 'exploit') {
+                // Exploit preset - game-breaking settings
+                toggles.forEach(toggle => {
+                    if (toggle.closest('#exploits') || toggle.closest('#movement') || toggle.closest('#weapons')) {
+                        toggle.classList.add('active', 'exploit');
+                        toggle.classList.remove('legit', 'rage');
+                    } else {
+                        toggle.classList.remove('active', 'legit', 'rage', 'exploit');
+                    }
+                });
+                
+                sliders.forEach(slider => {
+                    if (slider.id.includes('speed')) slider.value = 3.0;
+                    if (slider.id.includes('distance')) slider.value = 20;
+                    if (slider.id.includes('duration')) slider.value = 1000;
+                    slider.classList.add('exploit');
+                    slider.classList.remove('legit', 'rage');
+                });
+                
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.id.includes('invis') || 
+                        checkbox.id.includes('god') ||
+                        checkbox.id.includes('fly') ||
+                        checkbox.id.includes('teleport') ||
+                        checkbox.id.includes('unbreakable')) {
                         checkbox.checked = true;
                     } else {
                         checkbox.checked = false;
@@ -870,32 +2344,7 @@
                     event.currentTarget.style.transform = '';
                 }, 300);
                 
-            } else if (type === 'rage') {
-                // Rage preset - aggressive settings
-                toggles.forEach(toggle => {
-                    toggle.classList.add('active', 'rage');
-                    toggle.classList.remove('legit');
-                });
-                
-                sliders.forEach(slider => {
-                    if (slider.id.includes('smooth')) slider.value = 15;
-                    if (slider.id.includes('fov')) slider.value = 30;
-                    if (slider.id.includes('strength')) slider.value = 100;
-                    if (slider.id.includes('rapidfire')) slider.value = 5;
-                    if (slider.id.includes('speed')) slider.value = 2.5;
-                    slider.classList.add('rage');
-                    slider.classList.remove('legit');
-                });
-                
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = true;
-                });
-                
-                // Pulse effect on preset button
-                event.currentTarget.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    event.currentTarget.style.transform = '';
-                }, 300);
+                showNotification('Exploit preset applied', 'success');
             }
             
             // Update all slider displays
@@ -919,11 +2368,71 @@
                         valueDisplay.textContent = slider.value + 'x';
                     } else if (slider.id.includes('delay') || slider.id.includes('trigger')) {
                         valueDisplay.textContent = slider.value + 'ms';
+                    } else if (slider.id === 'time-value') {
+                        valueDisplay.textContent = slider.value + ':00';
                     } else {
                         valueDisplay.textContent = slider.value;
                     }
                 }
             });
+        }
+        
+        // Notification system
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.querySelector('.notification-content').textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Search functionality
+        function searchFeatures() {
+            const searchTerm = document.getElementById('feature-search').value.toLowerCase();
+            if (searchTerm.length < 2) return;
+            
+            document.querySelectorAll('.option').forEach(option => {
+                const optionText = option.textContent.toLowerCase();
+                if (optionText.includes(searchTerm)) {
+                    option.style.borderLeft = '3px solid var(--rage-color)';
+                    option.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // Flash effect
+                    option.style.boxShadow = '0 0 15px var(--rage-color)';
+                    setTimeout(() => {
+                        option.style.boxShadow = '';
+                    }, 1000);
+                } else {
+                    option.style.borderLeft = '';
+                }
+            });
+        }
+        
+        // Config management
+        function saveConfig() {
+            const configName = document.getElementById('config-select').value;
+            showNotification(`Config "${configName}" saved`, 'success');
+        }
+        
+        function loadConfig() {
+            const configName = document.getElementById('config-select').value;
+            showNotification(`Config "${configName}" loaded`, 'success');
+        }
+        
+        function resetConfig() {
+            showNotification('Config reset to default', 'warning');
+        }
+        
+        // Other functions
+        function checkUpdates() {
+            showNotification('No updates available', 'success');
+        }
+        
+        function showDiscord() {
+            showNotification('Discord link copied to clipboard', 'success');
+            // In a real app, you would copy the Discord link
         }
         
         // Initialize tabs
@@ -939,8 +2448,14 @@
             slider.addEventListener('input', updateSliderValues);
         });
 
-        // Initialize first tab
-        document.querySelector('.tab.active').click();
+        // Initialize search
+        document.getElementById('feature-search').addEventListener('keyup', searchFeatures);
+
+        // Load last active tab
+        const lastTab = localStorage.getItem('lastTab') || 'aimbot';
+        document.querySelector(`.tab[data-tab="${lastTab}"]`).click();
+        
+        // Initialize values
         updateSliderValues();
     </script>
 </body>
